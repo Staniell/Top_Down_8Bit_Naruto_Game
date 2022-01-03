@@ -84,6 +84,18 @@ class CustomCanvas extends Canvas {
     Rectangle r11;
     Rectangle r12;
 
+    Rectangle r13;
+    Rectangle r14;
+    Rectangle r15;
+    Rectangle r16;
+    Rectangle r17;
+
+    Rectangle r18;
+    Rectangle r19;
+    Rectangle r20;
+    Rectangle r21;
+    Rectangle r22;
+
 
     Rectangle d1;
 
@@ -115,8 +127,8 @@ class CustomCanvas extends Canvas {
         task = new TimerTask() {
             public void run() {
                 moveIt();
-                System.out.println("X:"+virtualX +" Y:"+virtualY);
-
+//                System.out.println("X:"+virtualX +" Y:"+virtualY);
+//                System.out.println(img);
             }//end run
         };//end task 
 
@@ -141,11 +153,11 @@ class CustomCanvas extends Canvas {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("Mouse was clicked at: " + e.getX());
-                str = "" + e.getX() + " " + e.getY();
-                virtualX = e.getX();
-                virtualY = e.getY();
-                repaint();
+//                System.out.println("Mouse was clicked at: " + e.getX());
+//                str = "" + e.getX() + " " + e.getY();
+//                virtualX = e.getX();
+//                virtualY = e.getY();
+//                repaint();
             }
 
             @Override
@@ -196,7 +208,7 @@ class CustomCanvas extends Canvas {
         g.drawString("Si Naruto ay nasa position: " + virtualX + "," + virtualY + " " + str, 10, Height / 2);
 
         //ito ang rect ni naruto
-        rect = new Rectangle( virtualX , virtualY,imgCurent.getWidth(this)+5, imgCurent.getHeight(this)+5);
+        rect = new Rectangle( virtualX , virtualY,imgCurent.getWidth(this), imgCurent.getHeight(this));
 
 //        Color c=new Color(1f,0f,0f,.5f );
 //        g.setColor ( c );
@@ -250,6 +262,50 @@ class CustomCanvas extends Canvas {
         g.setColor(Color.blue);
         g.fillRect(477, 280, 130, 30);
 
+        r11 = new Rectangle(0, 625, 450, 30);
+        g.setColor(Color.YELLOW);
+        g.fillRect(0, 625, 450, 30);
+
+        r12 = new Rectangle(518, 630, 400, 30);
+        g.setColor(Color.BLUE);
+        g.fillRect(518, 630, 400, 30);
+
+        r13 = new Rectangle(40, 431, 30, 200);
+        g.setColor(Color.green);
+        g.fillRect(40, 431, 30, 200);
+
+        r14 = new Rectangle(165, 442, 135, 90);
+        g.setColor(Color.green);
+        g.fillRect(165, 442, 135, 90);
+
+        r15 = new Rectangle(360, 455, 135, 30);
+        g.setColor(Color.pink);
+        g.fillRect(360, 455, 135, 30);
+
+        r16 = new Rectangle(240, 560, 160, 90);
+        g.setColor(Color.cyan);
+        g.fillRect(240, 560, 160, 90);
+
+        r17 = new Rectangle(510, 316, 30, 120);
+        g.setColor(Color.cyan);
+        g.fillRect(510, 316, 30, 120);
+
+        r18 = new Rectangle(436, 450, 200, 35);
+        g.setColor(Color.magenta);
+        g.fillRect(436, 450, 200, 35);
+
+        r19 = new Rectangle(430, 560, 27, 100);
+        g.setColor(Color.gray);
+        g.fillRect(430, 560, 27, 100);
+
+        r20 = new Rectangle(630, 485, 30, 150);
+        g.setColor(Color.gray);
+        g.fillRect(630, 485, 30, 150);
+
+//        r20 = new Rectangle(430, 560, 27, 100);
+//        g.setColor(Color.gray);
+//        g.fillRect(430, 560, 27, 100);
+
         Collide();
 
 
@@ -261,7 +317,11 @@ class CustomCanvas extends Canvas {
         }
         switch (gameAction) {
             case KeyEvent.VK_DOWN:
-                if (rect.intersects(r1) == false && rect.intersects(r2) == false && rect.intersects(r3) == false){
+                if (rect.intersects(r1) == false && rect.intersects(r2) == false && rect.intersects(r3) == false && rect.intersects(r4) == false && rect.intersects(r5) == false
+                        && rect.intersects(r6) == false && rect.intersects(r7) == false && rect.intersects(r8) == false && rect.intersects(r9) == false
+                        && rect.intersects(r10) == false && rect.intersects(r11) == false && rect.intersects(r12) == false && rect.intersects(r13) == false
+                        && rect.intersects(r14) == false && rect.intersects(r15) == false && rect.intersects(r16) == false && rect.intersects(r17) == false
+                        && rect.intersects(r18) == false && rect.intersects(r19) == false && rect.intersects(r20) == false){
                 x = 1;
                 virtualY += 5;
                 System.out.println(frame);
@@ -269,41 +329,53 @@ class CustomCanvas extends Canvas {
                 imgCurent = img[frame + 4];
                 }
                 else
-                    virtualY-=7;
+                    virtualY-=10;
                 repaint();
+                System.out.println(imgCurent.toString());
                 break;
             case KeyEvent.VK_UP:
-                if (rect.intersects(r1) == false && rect.intersects(r2) == false && rect.intersects(r3) == false) {
+                if (rect.intersects(r1) == false && rect.intersects(r2) == false && rect.intersects(r3) == false && rect.intersects(r4) == false && rect.intersects(r5) == false
+                        && rect.intersects(r6) == false && rect.intersects(r7) == false && rect.intersects(r8) == false && rect.intersects(r9) == false
+                        && rect.intersects(r10) == false && rect.intersects(r11) == false && rect.intersects(r12) == false && rect.intersects(r13) == false
+                        && rect.intersects(r14) == false && rect.intersects(r15) == false && rect.intersects(r16) == false && rect.intersects(r17) == false
+                        && rect.intersects(r18) == false && rect.intersects(r19) == false && rect.intersects(r20) == false) {
                     x = 2;
                     virtualY -= 5;
                     frame = (frame + 1) % 4;
                     imgCurent = img[frame + 0];
-
                 }
                 else
-                    virtualY+=7;
+                    virtualY+=10;
                 repaint();
                 break;
             case KeyEvent.VK_LEFT:
-                if (rect.intersects(r1) == false && rect.intersects(r2) == false && rect.intersects(r3) == false) {
+                if (rect.intersects(r1) == false && rect.intersects(r2) == false && rect.intersects(r3) == false && rect.intersects(r4) == false && rect.intersects(r5) == false
+                        && rect.intersects(r6) == false && rect.intersects(r7) == false && rect.intersects(r8) == false && rect.intersects(r9) == false
+                        && rect.intersects(r10) == false && rect.intersects(r11) == false && rect.intersects(r12) == false && rect.intersects(r13) == false
+                        && rect.intersects(r14) == false && rect.intersects(r15) == false && rect.intersects(r16) == false && rect.intersects(r17) == false
+                        && rect.intersects(r18) == false && rect.intersects(r19) == false && rect.intersects(r20) == false) {
                     x = 3;
                     virtualX -= 5;
                     frame = (frame + 1) % 4;
                     imgCurent = img[frame + 8];
                 }
                 else
-                    virtualX+=7;
+                    virtualX+=10;
                 repaint();
                 break;
             case KeyEvent.VK_RIGHT:
-                if (rect.intersects(r1) == false && rect.intersects(r2) == false && rect.intersects(r3) == false) {
+                if (rect.intersects(r1) == false && rect.intersects(r2) == false && rect.intersects(r3) == false && rect.intersects(r4) == false && rect.intersects(r5) == false
+                        && rect.intersects(r6) == false && rect.intersects(r7) == false && rect.intersects(r8) == false && rect.intersects(r9) == false
+                        && rect.intersects(r10) == false && rect.intersects(r11) == false && rect.intersects(r12) == false && rect.intersects(r13) == false
+                        && rect.intersects(r14) == false && rect.intersects(r15) == false && rect.intersects(r16) == false && rect.intersects(r17) == false
+                        && rect.intersects(r18) == false && rect.intersects(r19) == false && rect.intersects(r20) == false) {
                     x = 4;
                     virtualX += 5;
                     frame = (frame + 1) % 4;
                     imgCurent = img[frame + 12];
                 }
                 else
-                    virtualX-=7;
+                    virtualX-=10;
                 repaint();
                 break;
         }
