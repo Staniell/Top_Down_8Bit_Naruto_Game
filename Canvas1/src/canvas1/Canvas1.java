@@ -12,7 +12,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.TimerTask;
 import java.util.Timer;
-import java.io.File;
 
 public class Canvas1 extends JFrame {
 
@@ -60,7 +59,7 @@ class CustomCanvas extends Canvas {
     TimerTask task;
 
     Image imgCurent;
-    File fileCurrent;
+    String Current_Direction;
     boolean moving = false;
     int gameAction;
     int frame = 0;
@@ -68,7 +67,7 @@ class CustomCanvas extends Canvas {
 
     String[] directions = {"U", "D", "L", "R"};
     Image[] img = new Image[16];
-    File[] filenames = new File[16];
+
     ImageIcon icon;
 
     Rectangle rect ;   //para kay naruto
@@ -114,13 +113,12 @@ class CustomCanvas extends Canvas {
             for (int f = 1; f <= 4; f++) {
                 icon = new ImageIcon("Canvas1/"+directions[d] + f + ".png");
                 img[index] = icon.getImage();
-                filenames[index] = new File("Canvas1/"+directions[d] + f + ".png");
                 index++;
             }//loop frame to create all images in array form
         }
         
         imgCurent = img[0]; //initial image of naruto upon running code
-        fileCurrent = filenames[0];
+        Current_Direction = "D";
 
         bg = new ImageIcon("Canvas1/background_img.png");
         backgroundx = bg.getImage();
@@ -227,9 +225,9 @@ class CustomCanvas extends Canvas {
 //        g.fillRect (rect2.x,rect2.y,rect2.width,rect2.height);
 //        g.drawImage(wall, 45, 115, this);
 
-        r1 = new Rectangle(0,65,1500,40);
+        r1 = new Rectangle(0,45,1500,40);
         g.setColor(Color.RED);
-        g.fillRect(0,65,1500,40);
+        g.fillRect(0,45,1500,40);
 
         r2 = new Rectangle(81, 110, 30, 330);
         g.setColor(Color.RED);
@@ -322,20 +320,20 @@ class CustomCanvas extends Canvas {
         }
         switch (gameAction) {
             case KeyEvent.VK_DOWN:
-                if (rect.intersects(r1) == false && rect.intersects(r2) == false && rect.intersects(r3) == false && rect.intersects(r4) == false && rect.intersects(r5) == false
-                        && rect.intersects(r6) == false && rect.intersects(r7) == false && rect.intersects(r8) == false && rect.intersects(r9) == false
-                        && rect.intersects(r10) == false && rect.intersects(r11) == false && rect.intersects(r12) == false && rect.intersects(r13) == false
-                        && rect.intersects(r14) == false && rect.intersects(r15) == false && rect.intersects(r16) == false && rect.intersects(r17) == false
-                        && rect.intersects(r18) == false && rect.intersects(r19) == false && rect.intersects(r20) == false){
+                if (!rect.intersects(r1) && !rect.intersects(r2) && !rect.intersects(r3) && !rect.intersects(r4) && !rect.intersects(r5)
+                        && !rect.intersects(r6) && !rect.intersects(r7) && !rect.intersects(r8) && !rect.intersects(r9)
+                        && !rect.intersects(r10) && !rect.intersects(r11) && !rect.intersects(r12) && !rect.intersects(r13)
+                        && !rect.intersects(r14) && !rect.intersects(r15) && !rect.intersects(r16) && !rect.intersects(r17)
+                        && !rect.intersects(r18) && !rect.intersects(r19) && !rect.intersects(r20)){
                 x = 1;
                 virtualY += 5;
                 System.out.println(frame);
                 frame = (frame + 1) % 4;
                 imgCurent = img[frame + 4];
-                fileCurrent = filenames[frame + 4];
+                Current_Direction = "D";
                 }
                 else {
-                    switch(fileCurrent.getName().substring(0,1)){
+                    switch(Current_Direction){
                         case "R":
                             virtualX-=10;
                             break;
@@ -352,22 +350,22 @@ class CustomCanvas extends Canvas {
                     }
                 }
                 repaint();
-                System.out.println(fileCurrent.getName().substring(0,1));
+                System.out.println(Current_Direction);
                 break;
             case KeyEvent.VK_UP:
-                if (rect.intersects(r1) == false && rect.intersects(r2) == false && rect.intersects(r3) == false && rect.intersects(r4) == false && rect.intersects(r5) == false
-                        && rect.intersects(r6) == false && rect.intersects(r7) == false && rect.intersects(r8) == false && rect.intersects(r9) == false
-                        && rect.intersects(r10) == false && rect.intersects(r11) == false && rect.intersects(r12) == false && rect.intersects(r13) == false
-                        && rect.intersects(r14) == false && rect.intersects(r15) == false && rect.intersects(r16) == false && rect.intersects(r17) == false
-                        && rect.intersects(r18) == false && rect.intersects(r19) == false && rect.intersects(r20) == false) {
+                if (!rect.intersects(r1) && !rect.intersects(r2) && !rect.intersects(r3) && !rect.intersects(r4) && !rect.intersects(r5)
+                        && !rect.intersects(r6) && !rect.intersects(r7) && !rect.intersects(r8) && !rect.intersects(r9)
+                        && !rect.intersects(r10) && !rect.intersects(r11) && !rect.intersects(r12) && !rect.intersects(r13)
+                        && !rect.intersects(r14) && !rect.intersects(r15) && !rect.intersects(r16) && !rect.intersects(r17)
+                        && !rect.intersects(r18) && !rect.intersects(r19) && !rect.intersects(r20)) {
                     x = 2;
                     virtualY -= 5;
                     frame = (frame + 1) % 4;
                     imgCurent = img[frame + 0];
-                    fileCurrent = filenames[frame + 0];
+                    Current_Direction = "U";
                 }
                 else{
-                    switch(fileCurrent.getName().substring(0,1)){
+                    switch(Current_Direction){
                         case "R":
                             virtualX-=10;
                             break;
@@ -384,22 +382,22 @@ class CustomCanvas extends Canvas {
                     }
                 }
                 repaint();
-                System.out.println(fileCurrent.getName().substring(0,1));
+                System.out.println(Current_Direction);
                 break;
             case KeyEvent.VK_LEFT:
-                if (rect.intersects(r1) == false && rect.intersects(r2) == false && rect.intersects(r3) == false && rect.intersects(r4) == false && rect.intersects(r5) == false
-                        && rect.intersects(r6) == false && rect.intersects(r7) == false && rect.intersects(r8) == false && rect.intersects(r9) == false
-                        && rect.intersects(r10) == false && rect.intersects(r11) == false && rect.intersects(r12) == false && rect.intersects(r13) == false
-                        && rect.intersects(r14) == false && rect.intersects(r15) == false && rect.intersects(r16) == false && rect.intersects(r17) == false
-                        && rect.intersects(r18) == false && rect.intersects(r19) == false && rect.intersects(r20) == false) {
+                if (!rect.intersects(r1) && !rect.intersects(r2) && !rect.intersects(r3) && !rect.intersects(r4) && !rect.intersects(r5)
+                        && !rect.intersects(r6) && !rect.intersects(r7) && !rect.intersects(r8) && !rect.intersects(r9)
+                        && !rect.intersects(r10) && !rect.intersects(r11) && !rect.intersects(r12) && !rect.intersects(r13)
+                        && !rect.intersects(r14) && !rect.intersects(r15) && !rect.intersects(r16) && !rect.intersects(r17)
+                        && !rect.intersects(r18) && !rect.intersects(r19) && !rect.intersects(r20)) {
                     x = 3;
                     virtualX -= 5;
                     frame = (frame + 1) % 4;
                     imgCurent = img[frame + 8];
-                    fileCurrent = filenames[frame + 8];
+                    Current_Direction = "L";
                 }
                 else{
-                    switch(fileCurrent.getName().substring(0,1)){
+                    switch(Current_Direction){
                         case "U":
                             virtualY+=10;
                             break;
@@ -416,22 +414,22 @@ class CustomCanvas extends Canvas {
                     }
                 }
                 repaint();
-                System.out.println(fileCurrent.getName().substring(0,1));
+                System.out.println(Current_Direction);
                 break;
             case KeyEvent.VK_RIGHT:
-                if (rect.intersects(r1) == false && rect.intersects(r2) == false && rect.intersects(r3) == false && rect.intersects(r4) == false && rect.intersects(r5) == false
-                        && rect.intersects(r6) == false && rect.intersects(r7) == false && rect.intersects(r8) == false && rect.intersects(r9) == false
-                        && rect.intersects(r10) == false && rect.intersects(r11) == false && rect.intersects(r12) == false && rect.intersects(r13) == false
-                        && rect.intersects(r14) == false && rect.intersects(r15) == false && rect.intersects(r16) == false && rect.intersects(r17) == false
-                        && rect.intersects(r18) == false && rect.intersects(r19) == false && rect.intersects(r20) == false) {
+                if (!rect.intersects(r1) && !rect.intersects(r2) && !rect.intersects(r3) && !rect.intersects(r4) && !rect.intersects(r5)
+                        && !rect.intersects(r6) && !rect.intersects(r7) && !rect.intersects(r8) && !rect.intersects(r9)
+                        && !rect.intersects(r10) && !rect.intersects(r11) && !rect.intersects(r12) && !rect.intersects(r13)
+                        && !rect.intersects(r14) && !rect.intersects(r15) && !rect.intersects(r16) && !rect.intersects(r17)
+                        && !rect.intersects(r18) && !rect.intersects(r19) && !rect.intersects(r20)) {
                     x = 4;
                     virtualX += 5;
                     frame = (frame + 1) % 4;
                     imgCurent = img[frame + 12];
-                    fileCurrent = filenames[frame + 12];
+                    Current_Direction = "R";
                 }
                 else {
-                    switch (fileCurrent.getName().substring(0, 1)) {
+                    switch (Current_Direction) {
                         case "U":
                             virtualY += 10;
                             break;
@@ -448,7 +446,7 @@ class CustomCanvas extends Canvas {
                     }
                 }
                 repaint();
-                System.out.println(fileCurrent.getName().substring(0,1));
+                System.out.println(Current_Direction);
                 break;
         }
 
