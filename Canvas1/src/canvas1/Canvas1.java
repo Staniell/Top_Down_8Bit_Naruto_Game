@@ -10,6 +10,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.ImageObserver;
+import java.text.AttributedCharacterIterator;
 import java.util.TimerTask;
 import java.util.Timer;
 
@@ -46,6 +48,9 @@ public class Canvas1 extends JFrame {
     }
 
 }
+
+
+
 
 class CustomCanvas extends Canvas {
 
@@ -100,10 +105,20 @@ class CustomCanvas extends Canvas {
 
 
     Rectangle d1;
+    Rectangle d2;
+    Rectangle d3;
 
     ImageIcon bg;
     Image backgroundx;
     Image newImage;
+
+    boolean d1_unlocked = false;
+
+    boolean d2_key = false;
+    boolean d2_unlocked = false;
+
+    boolean d3_key = false;
+    boolean d3_unlocked = false;
 
     public CustomCanvas() {
 
@@ -120,7 +135,7 @@ class CustomCanvas extends Canvas {
         imgCurent = img[0]; //initial image of naruto upon running code
         Current_Direction = "D";
 
-        bg = new ImageIcon("Canvas1/background_img.png");
+        bg = new ImageIcon("Canvas1/default_view.png");
         backgroundx = bg.getImage();
         newImage = backgroundx.getScaledInstance(700, 700, Image.SCALE_DEFAULT);
 
@@ -130,8 +145,7 @@ class CustomCanvas extends Canvas {
         task = new TimerTask() {
             public void run() {
                 moveIt();
-//                System.out.println("X:"+virtualX +" Y:"+virtualY);
-//                System.out.println(img);
+                System.out.println("X:"+virtualX +" Y:"+virtualY);
             }//end run
         };//end task 
 
@@ -186,9 +200,9 @@ class CustomCanvas extends Canvas {
         addMouseMotionListener(new MouseMotionListener() {
 
             public void mouseDragged(MouseEvent e) {
-                virtualX = e.getX();
-                virtualY = e.getY();
-                repaint();
+//                virtualX = e.getX();
+//                virtualY = e.getY();
+//                repaint();
             }
 
             public void mouseMoved(MouseEvent e) {
@@ -245,9 +259,9 @@ class CustomCanvas extends Canvas {
         g.setColor(Color.RED);
         g.fillRect(313, 109, 30, 240);
 
-        r6 = new Rectangle(287, 232, 128, 80);
-        g.setColor(Color.RED);
-        g.fillRect(287, 232, 128, 80);
+        r6 = new Rectangle(280, 232, 140, 80);
+        g.setColor(Color.yellow);
+        g.fillRect(280, 232, 140, 80);
 
         r7 = new Rectangle(400, 112, 30, 120);
         g.setColor(Color.RED);
@@ -258,7 +272,7 @@ class CustomCanvas extends Canvas {
         g.fillRect(425, 100, 40, 100);
 
         r9 = new Rectangle(583, 107, 60, 190);
-        g.setColor(Color.RED);
+        g.setColor(Color.pink);
         g.fillRect(583, 107, 60, 190);
 
         r10 = new Rectangle(477, 280, 130, 30);
@@ -305,17 +319,44 @@ class CustomCanvas extends Canvas {
         g.setColor(Color.gray);
         g.fillRect(630, 485, 30, 150);
 
-//        r20 = new Rectangle(430, 560, 27, 100);
-//        g.setColor(Color.gray);
-//        g.fillRect(430, 560, 27, 100);
+        r21 = new Rectangle(175, 285, 50, 30);
+        g.setColor(Color.yellow);
+        g.fillRect(175, 285, 50, 30);
 
-        Collide();
+        if(!d1_unlocked) {
+            d1 = new Rectangle(235, 275, 40, 30);
+
+            if (rect.intersects(d1)){
+                Color c = new Color(1f, 0f, 0f, .5f);
+                g.setColor(c);
+                g.fillRect(235, 285, 40, 30);
+            }
+        }
+
+        if (!d2_unlocked) {
+            d2 = new Rectangle(425, 280, 40, 30);
+            Color c = new Color(1f,0f,0f,.5f );
+            g.setColor(c);
+            g.fillRect(425, 280, 40, 30);
+        }
+
+        if (!d3_unlocked){
+            d3 = new Rectangle(100, 430, 40, 30);
+            Color c = new Color(1f,0f,0f,.5f );
+            g.setColor(c);
+            g.fillRect(100, 430, 40, 30);
+
+        }
+
+
+
+//        Collide();
 
 
     }
 
     public void moveIt() {
-        if (moving == false) {
+        if (!moving) {
             return;
         }
         switch (gameAction) {
@@ -324,7 +365,8 @@ class CustomCanvas extends Canvas {
                         && !rect.intersects(r6) && !rect.intersects(r7) && !rect.intersects(r8) && !rect.intersects(r9)
                         && !rect.intersects(r10) && !rect.intersects(r11) && !rect.intersects(r12) && !rect.intersects(r13)
                         && !rect.intersects(r14) && !rect.intersects(r15) && !rect.intersects(r16) && !rect.intersects(r17)
-                        && !rect.intersects(r18) && !rect.intersects(r19) && !rect.intersects(r20)){
+                        && !rect.intersects(r18) && !rect.intersects(r19) && !rect.intersects(r20) && !rect.intersects(r21)
+                        && !rect.intersects(d1) && !rect.intersects(d2)){
                 x = 1;
                 virtualY += 5;
                 System.out.println(frame);
@@ -357,7 +399,8 @@ class CustomCanvas extends Canvas {
                         && !rect.intersects(r6) && !rect.intersects(r7) && !rect.intersects(r8) && !rect.intersects(r9)
                         && !rect.intersects(r10) && !rect.intersects(r11) && !rect.intersects(r12) && !rect.intersects(r13)
                         && !rect.intersects(r14) && !rect.intersects(r15) && !rect.intersects(r16) && !rect.intersects(r17)
-                        && !rect.intersects(r18) && !rect.intersects(r19) && !rect.intersects(r20)) {
+                        && !rect.intersects(r18) && !rect.intersects(r19) && !rect.intersects(r20) && !rect.intersects(r21)
+                        && !rect.intersects(d1) && !rect.intersects(d2)) {
                     x = 2;
                     virtualY -= 5;
                     frame = (frame + 1) % 4;
@@ -389,7 +432,8 @@ class CustomCanvas extends Canvas {
                         && !rect.intersects(r6) && !rect.intersects(r7) && !rect.intersects(r8) && !rect.intersects(r9)
                         && !rect.intersects(r10) && !rect.intersects(r11) && !rect.intersects(r12) && !rect.intersects(r13)
                         && !rect.intersects(r14) && !rect.intersects(r15) && !rect.intersects(r16) && !rect.intersects(r17)
-                        && !rect.intersects(r18) && !rect.intersects(r19) && !rect.intersects(r20)) {
+                        && !rect.intersects(r18) && !rect.intersects(r19) && !rect.intersects(r20) && !rect.intersects(r21)
+                        && !rect.intersects(d1) && !rect.intersects(d2)) {
                     x = 3;
                     virtualX -= 5;
                     frame = (frame + 1) % 4;
@@ -421,7 +465,8 @@ class CustomCanvas extends Canvas {
                         && !rect.intersects(r6) && !rect.intersects(r7) && !rect.intersects(r8) && !rect.intersects(r9)
                         && !rect.intersects(r10) && !rect.intersects(r11) && !rect.intersects(r12) && !rect.intersects(r13)
                         && !rect.intersects(r14) && !rect.intersects(r15) && !rect.intersects(r16) && !rect.intersects(r17)
-                        && !rect.intersects(r18) && !rect.intersects(r19) && !rect.intersects(r20)) {
+                        && !rect.intersects(r18) && !rect.intersects(r19) && !rect.intersects(r20) && !rect.intersects(r21)
+                        && !rect.intersects(d1) && !rect.intersects(d2)) {
                     x = 4;
                     virtualX += 5;
                     frame = (frame + 1) % 4;
@@ -448,22 +493,47 @@ class CustomCanvas extends Canvas {
                 repaint();
                 System.out.println(Current_Direction);
                 break;
+            case KeyEvent.VK_ENTER:
+                if (rect.intersects(d1))
+                {
+                    bg = new ImageIcon("Canvas1/d1_opened.png");
+                    backgroundx = bg.getImage();
+                    newImage = backgroundx.getScaledInstance(700, 700, Image.SCALE_DEFAULT);
+                    d1_unlocked = true;
+                    d1.setLocation(-125,-125);
+                    repaint();
+                }
+                else if (rect.intersects(d2))
+                {
+                    bg = new ImageIcon("Canvas1/d1_d2_opened.png");
+                    backgroundx = bg.getImage();
+                    newImage = backgroundx.getScaledInstance(700, 700, Image.SCALE_DEFAULT);
+                    d2_unlocked = true;
+                    d2.setLocation(-125,-125);
+                    repaint();
+                }
+                else if (rect.intersects(d3))
+                {
+                    bg = new ImageIcon("Canvas1/d1_d2_d3_opened.png");
+                    backgroundx = bg.getImage();
+                    newImage = backgroundx.getScaledInstance(700, 700, Image.SCALE_DEFAULT);
+                    d3_unlocked = true;
+                    d3.setLocation(-155,-155);
+                    repaint();
+                }
         }
 
     }
 
     
-     public void Collide()    {      
-//      if (rect.intersects(rect2)){
-//          virtualX -=5;
-//        System.out.println("wakokok nagbanggaan!!!");
-//        virtualX= 0;
-//        virtualY= 0;
-//        icon = new ImageIcon("Canvas1/die.png");
-//        imgCurent = icon.getImage();
-//
-//        repaint();
-//     }
+        public void Collide()
+        {
+//            if (rect.intersects(d1)){
+//            d1 = new Rectangle(425, 280, 40, 30);
+//            Color c = new Color(1f, 0f, 0f, .5f);
+//            repaint();
+//        }
+
     }
 
 }
