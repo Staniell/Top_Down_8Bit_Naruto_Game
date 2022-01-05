@@ -10,17 +10,13 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.image.ImageObserver;
-import java.text.AttributedCharacterIterator;
 import java.util.TimerTask;
 import java.util.Timer;
-import java.util.concurrent.TimeUnit;
 
 public class Canvas1 extends JFrame {
 
   
     CustomCanvas DrawingArea;
-    int x, y;
 
     public Canvas1() {
 
@@ -58,12 +54,9 @@ public class Canvas1 extends JFrame {
 
 class CustomCanvas extends Canvas {
 
-    String str;
-    public int x;
-    public int y;
+//    public int x;
     public int virtualX = 220;
     public int virtualY = 120;
-    public int pos = 8;
 
     boolean sasuke_alive = true;
     public int sasuke_y = 355;
@@ -83,7 +76,7 @@ class CustomCanvas extends Canvas {
     boolean endpoint = true;
     boolean no_key = false;
 
-    int movements[] = new int[10];
+    int[] movements = new int[10];
     public int count = 350;
     public int ctr = 1;
     int strikes = 0;
@@ -189,10 +182,9 @@ class CustomCanvas extends Canvas {
     public CustomCanvas() {
 
 
-
-        for (int d = 0; d < directions.length; d++) {
+        for (String direction : directions) {
             for (int f = 1; f <= 4; f++) {
-                icon = new ImageIcon("Canvas1/"+directions[d] + f + ".png");
+                icon = new ImageIcon("Canvas1/" + direction + f + ".png");
                 img[index] = icon.getImage();
                 index++;
             }//loop frame to create all images in array form
@@ -262,11 +254,6 @@ class CustomCanvas extends Canvas {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-//                System.out.println("Mouse was clicked at: " + e.getX());
-//                str = "" + e.getX() + " " + e.getY();
-//                virtualX = e.getX();
-//                virtualY = e.getY();
-//                repaint();
             }
 
             @Override
@@ -292,9 +279,6 @@ class CustomCanvas extends Canvas {
         addMouseMotionListener(new MouseMotionListener() {
 
             public void mouseDragged(MouseEvent e) {
-//                virtualX = e.getX();
-//                virtualY = e.getY();
-//                repaint();
             }
 
             public void mouseMoved(MouseEvent e) {
@@ -628,202 +612,168 @@ class CustomCanvas extends Canvas {
             return;
         }
         switch (gameAction) {
-            case KeyEvent.VK_DOWN:
-                steps+=1;
+            case KeyEvent.VK_DOWN -> {
+                steps += 1;
                 if (!rect.intersects(r1) && !rect.intersects(r2) && !rect.intersects(r3) && !rect.intersects(r4) && !rect.intersects(r5)
                         && !rect.intersects(r6) && !rect.intersects(r7) && !rect.intersects(r8) && !rect.intersects(r9)
                         && !rect.intersects(r10) && !rect.intersects(r11) && !rect.intersects(r12) && !rect.intersects(r13)
                         && !rect.intersects(r14) && !rect.intersects(r15) && !rect.intersects(r16) && !rect.intersects(r17)
                         && !rect.intersects(r18) && !rect.intersects(r19) && !rect.intersects(r20) && !rect.intersects(r21)
-                        && !rect.intersects(d1) && !rect.intersects(d2) && !rect.intersects(d3) && !rect.intersects(r22)){
-                x = 1;
-                virtualY += 15;
-                frame = (frame + 1) % 4;
-                imgCurent = img[frame + 4];
-                Current_Direction = "D";
-                }
-                else {
-                    switch(Current_Direction){
-                        case "R":
-                            virtualX-=10;
-                            break;
-                        case "L":
-                            virtualX+=10;
-                            break;
-                        case "U":
-                            virtualY +=10;
+                        && !rect.intersects(d1) && !rect.intersects(d2) && !rect.intersects(d3) && !rect.intersects(r22)) {
+
+                    virtualY += 15;
+                    frame = (frame + 1) % 4;
+                    imgCurent = img[frame + 4];
+                    Current_Direction = "D";
+                } else {
+                    switch (Current_Direction) {
+                        case "R" -> virtualX -= 10;
+                        case "L" -> virtualX += 10;
+                        case "U" -> {
+                            virtualY += 10;
                             frame = (frame + 1) % 4;
                             imgCurent = img[frame + 4];
-                            break;
-                        default:
-                            virtualY -=10;
+                        }
+                        default -> virtualY -= 10;
                     }
                 }
                 repaint();
-                break;
-            case KeyEvent.VK_UP:
-                steps+=1;
+            }
+            case KeyEvent.VK_UP -> {
+                steps += 1;
                 if (!rect.intersects(r1) && !rect.intersects(r2) && !rect.intersects(r3) && !rect.intersects(r4) && !rect.intersects(r5)
                         && !rect.intersects(r6) && !rect.intersects(r7) && !rect.intersects(r8) && !rect.intersects(r9)
                         && !rect.intersects(r10) && !rect.intersects(r11) && !rect.intersects(r12) && !rect.intersects(r13)
                         && !rect.intersects(r14) && !rect.intersects(r15) && !rect.intersects(r16) && !rect.intersects(r17)
                         && !rect.intersects(r18) && !rect.intersects(r19) && !rect.intersects(r20) && !rect.intersects(r21)
                         && !rect.intersects(d1) && !rect.intersects(d2) && !rect.intersects(d3) && !rect.intersects(r22)) {
-                    x = 2;
+
                     virtualY -= 15;
                     frame = (frame + 1) % 4;
-                    imgCurent = img[frame + 0];
+                    imgCurent = img[frame];
                     Current_Direction = "U";
-                }
-                else{
-                    switch(Current_Direction){
-                        case "R":
-                            virtualX-=10;
-                            break;
-                        case "L":
-                            virtualX+=10;
-                            break;
-                        case "D":
-                            virtualY -=10;
+                } else {
+                    switch (Current_Direction) {
+                        case "R" -> virtualX -= 10;
+                        case "L" -> virtualX += 10;
+                        case "D" -> {
+                            virtualY -= 10;
                             frame = (frame + 1) % 4;
-                            imgCurent = img[frame + 0];
-                            break;
-                        default:
-                            virtualY +=10;
+                            imgCurent = img[frame];
+                        }
+                        default -> virtualY += 10;
                     }
                 }
                 repaint();
-                break;
-            case KeyEvent.VK_LEFT:
-                steps+=1;
+            }
+            case KeyEvent.VK_LEFT -> {
+                steps += 1;
                 if (!rect.intersects(r1) && !rect.intersects(r2) && !rect.intersects(r3) && !rect.intersects(r4) && !rect.intersects(r5)
                         && !rect.intersects(r6) && !rect.intersects(r7) && !rect.intersects(r8) && !rect.intersects(r9)
                         && !rect.intersects(r10) && !rect.intersects(r11) && !rect.intersects(r12) && !rect.intersects(r13)
                         && !rect.intersects(r14) && !rect.intersects(r15) && !rect.intersects(r16) && !rect.intersects(r17)
                         && !rect.intersects(r18) && !rect.intersects(r19) && !rect.intersects(r20) && !rect.intersects(r21)
                         && !rect.intersects(d1) && !rect.intersects(d2) && !rect.intersects(d3) && !rect.intersects(r22)) {
-                    x = 3;
+
                     virtualX -= 15;
                     frame = (frame + 1) % 4;
                     imgCurent = img[frame + 8];
                     Current_Direction = "L";
-                }
-                else{
-                    switch(Current_Direction){
-                        case "U":
-                            virtualY+=10;
-                            break;
-                        case "D":
-                            virtualY-=10;
-                            break;
-                        case "R":
-                            virtualX -=10;
+                } else {
+                    switch (Current_Direction) {
+                        case "U" -> virtualY += 10;
+                        case "D" -> virtualY -= 10;
+                        case "R" -> {
+                            virtualX -= 10;
                             frame = (frame + 1) % 4;
                             imgCurent = img[frame + 8];
-                            break;
-                        default:
-                            virtualX +=10;
+                        }
+                        default -> virtualX += 10;
                     }
                 }
                 repaint();
-                break;
-            case KeyEvent.VK_RIGHT:
-                steps+=1;
+            }
+            case KeyEvent.VK_RIGHT -> {
+                steps += 1;
                 if (!rect.intersects(r1) && !rect.intersects(r2) && !rect.intersects(r3) && !rect.intersects(r4) && !rect.intersects(r5)
                         && !rect.intersects(r6) && !rect.intersects(r7) && !rect.intersects(r8) && !rect.intersects(r9)
                         && !rect.intersects(r10) && !rect.intersects(r11) && !rect.intersects(r12) && !rect.intersects(r13)
                         && !rect.intersects(r14) && !rect.intersects(r15) && !rect.intersects(r16) && !rect.intersects(r17)
                         && !rect.intersects(r18) && !rect.intersects(r19) && !rect.intersects(r20) && !rect.intersects(r21)
                         && !rect.intersects(d1) && !rect.intersects(d2) && !rect.intersects(d3) && !rect.intersects(r22)) {
-                    x = 4;
+
                     virtualX += 15;
                     frame = (frame + 1) % 4;
                     imgCurent = img[frame + 12];
                     Current_Direction = "R";
-                }
-                else {
+                } else {
                     switch (Current_Direction) {
-                        case "U":
-                            virtualY += 10;
-                            break;
-                        case "D":
-                            virtualY -= 10;
-                            break;
-                        case "L":
-                            virtualX +=10;
+                        case "U" -> virtualY += 10;
+                        case "D" -> virtualY -= 10;
+                        case "L" -> {
+                            virtualX += 10;
                             frame = (frame + 1) % 4;
                             imgCurent = img[frame + 12];
-                            break;
-                        default:
-                            virtualX -= 10;
+                        }
+                        default -> virtualX -= 10;
                     }
                 }
                 repaint();
-                break;
-            case KeyEvent.VK_ENTER:
-                if(lives == -1) {
+            }
+            case KeyEvent.VK_ENTER -> {
+                if (lives == -1) {
                     restart = true;
                     bg = new ImageIcon("Canvas1/default_view.png");
                     backgroundx = bg.getImage();
                     newImage = backgroundx.getScaledInstance(700, 700, Image.SCALE_DEFAULT);
-                }
-                else if (rect.intersects(d1))
-                {
+                } else if (rect.intersects(d1)) {
                     bg = new ImageIcon("Canvas1/d1_opened.png");
                     backgroundx = bg.getImage();
                     newImage = backgroundx.getScaledInstance(700, 700, Image.SCALE_DEFAULT);
                     d1_unlocked = true;
-                    d1.setLocation(-125,-125);
-                    has_key -=1;
-                }
-                else if (rect.intersects(d2))
-                {
-                    if(has_key>0) {
+                    d1.setLocation(-125, -125);
+                    has_key -= 1;
+                } else if (rect.intersects(d2)) {
+                    if (has_key > 0) {
                         bg = new ImageIcon("Canvas1/d1_d2_opened.png");
                         backgroundx = bg.getImage();
                         newImage = backgroundx.getScaledInstance(700, 700, Image.SCALE_DEFAULT);
                         d2_unlocked = true;
                         d2.setLocation(-125, -125);
-                        has_key-=1;
+                        has_key -= 1;
                         no_key = false;
-                    }
-                    else
+                    } else
                         no_key = true;
 
-                }
-                else if (rect.intersects(d3))
-                {
-                    if(has_key>0) {
+                } else if (rect.intersects(d3)) {
+                    if (has_key > 0) {
                         bg = new ImageIcon("Canvas1/d1_d2_d3_opened.png");
                         backgroundx = bg.getImage();
                         newImage = backgroundx.getScaledInstance(700, 700, Image.SCALE_DEFAULT);
                         d3_unlocked = true;
                         d3.setLocation(-155, -155);
-                        has_key-=1;
+                        has_key -= 1;
                         no_key = false;
-                    }
-                    else
+                    } else
                         no_key = true;
 
-                }
-                else if (rect.intersects(finish_line)) {
+                } else if (rect.intersects(finish_line)) {
                     bg = new ImageIcon("Canvas1/ending.jpg");
                     backgroundx = bg.getImage();
                     newImage = backgroundx.getScaledInstance(700, 700, Image.SCALE_DEFAULT);
-                    rect.setLocation(-120,-40);
-                    finish_line.setLocation(-400,60);
+                    rect.setLocation(-120, -40);
+                    finish_line.setLocation(-400, 60);
                     ended = true;
                 }
                 repaint();
-                break;
-            case KeyEvent.VK_SPACE:
-                strikes+=1;
-                if(weap_collected) {
+            }
+            case KeyEvent.VK_SPACE -> {
+                strikes += 1;
+                if (weap_collected) {
                     weap_thrown = true;
                     repaint();
                 }
-                break;
-
+            }
         }
 
     }
