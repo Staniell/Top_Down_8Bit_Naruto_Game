@@ -418,7 +418,7 @@ class CustomCanvas extends Canvas {
 
                 //Saitama
                 if (!comrade3_slain) {
-                    fist = new Rectangle(-150, -150, fist_image.getHeight(this), fist_image.getWidth(this));
+                    fist = new Rectangle(-150, -150, 100, 40);
                     if(ctr2 == 0) {
                         comrade3_icon = new ImageIcon("Canvas1/saktama.png");
                         g.drawImage(fist_image, c3_x-100, c3_y, this);
@@ -432,97 +432,101 @@ class CustomCanvas extends Canvas {
                     comrade3 = new Rectangle(c3_x, c3_y, comrade3_image.getHeight(this), comrade3_image.getWidth(this));
                 }
 
+
                 r1 = new Rectangle(0, 45, 1500, 40);
-        g.setColor(Color.RED);
-        g.fillRect(0,45,1500,40);
+//        g.setColor(Color.RED);
+//        g.fillRect(0,45,1500,40);
 
                 r2 = new Rectangle(81, 110, 30, 330);
-        g.setColor(Color.RED);
-        g.fillRect(81, 110, 30, 330);
+//        g.setColor(Color.RED);
+//        g.fillRect(81, 110, 30, 330);
 
                 r3 = new Rectangle(122, 213, 30, 150);
-        g.setColor(Color.RED);
-        g.fillRect(122, 213, 30, 150);
+//        g.setColor(Color.RED);
+//        g.fillRect(122, 213, 30, 150);
 
                 r4 = new Rectangle(161, 252, 30, 100);
-        g.setColor(Color.RED);
-        g.fillRect(161, 252, 30, 100);
+//        g.setColor(Color.RED);
+//        g.fillRect(161, 252, 30, 100);
 
                 r5 = new Rectangle(313, 109, 30, 210);
-        g.setColor(Color.RED);
-        g.fillRect(313, 109, 30, 210);
+//        g.setColor(Color.RED);
+//        g.fillRect(313, 109, 30, 210);
 
                 r6 = new Rectangle(280, 232, 140, 80);
-        g.setColor(Color.yellow);
-        g.fillRect(280, 232, 140, 80);
+//        g.setColor(Color.yellow);
+//        g.fillRect(280, 232, 140, 80);
 
                 r7 = new Rectangle(400, 112, 30, 120);
-        g.setColor(Color.RED);
-        g.fillRect(400, 112, 30, 120);
+//        g.setColor(Color.RED);
+//        g.fillRect(400, 112, 30, 120);
 
                 r8 = new Rectangle(425, 100, 40, 100);
-        g.setColor(Color.RED);
-        g.fillRect(425, 100, 40, 100);
+//        g.setColor(Color.RED);
+//        g.fillRect(425, 100, 40, 100);
 
                 r9 = new Rectangle(583, 107, 60, 190);
-        g.setColor(Color.pink);
-        g.fillRect(583, 107, 60, 190);
+//        g.setColor(Color.pink);
+//        g.fillRect(583, 107, 60, 190);
 
                 r10 = new Rectangle(477, 280, 130, 30);
-        g.setColor(Color.blue);
-        g.fillRect(477, 280, 130, 30);
+//        g.setColor(Color.blue);
+//        g.fillRect(477, 280, 130, 30);
 
                 r11 = new Rectangle(0, 625, 450, 30);
-        g.setColor(Color.YELLOW);
-        g.fillRect(0, 625, 450, 30);
+//        g.setColor(Color.YELLOW);
+//        g.fillRect(0, 625, 450, 30);
 
                 r12 = new Rectangle(518, 630, 400, 30);
-        g.setColor(Color.BLUE);
-        g.fillRect(518, 630, 400, 30);
+//        g.setColor(Color.BLUE);
+//        g.fillRect(518, 630, 400, 30);
 
                 r13 = new Rectangle(40, 431, 30, 200);
-        g.setColor(Color.green);
-        g.fillRect(40, 431, 30, 200);
+//        g.setColor(Color.green);
+//        g.fillRect(40, 431, 30, 200);
 
                 r14 = new Rectangle(165, 432, 90, 100);
-        g.setColor(Color.green);
-        g.fillRect(165, 432, 90, 100);
-
+//        g.setColor(Color.green);
+//        g.fillRect(165, 432, 90, 100);
+//
                 r22 = new Rectangle(250, 460, 50, 100);
-                g.setColor(Color.ORANGE);
-                g.fillRect(250, 460, 50, 100);
+//                g.setColor(Color.ORANGE);
+//                g.fillRect(250, 460, 50, 100);
 
                 r23 = new Rectangle(430, 430, 80, 30);
-                g.setColor(Color.ORANGE);
-                g.fillRect(430, 430, 80, 30);
+//                g.setColor(Color.ORANGE);
+//                g.fillRect(430, 430, 80, 30);
 
                 r15 = new Rectangle(360, 465, 135, 30);
-        g.setColor(Color.pink);
-        g.fillRect(360, 465, 135, 30);
+//        g.setColor(Color.pink);
+//        g.fillRect(360, 465, 135, 30);
 
                 r16 = new Rectangle(240, 580, 160, 90);
-        g.setColor(Color.cyan);
-        g.fillRect(240, 580, 160, 90);
+//        g.setColor(Color.cyan);
+//        g.fillRect(240, 580, 160, 90);
 
                 r17 = new Rectangle(510, 316, 30, 120);
-        g.setColor(Color.cyan);
-        g.fillRect(510, 316, 30, 120);
+//        g.setColor(Color.cyan);
+//        g.fillRect(510, 316, 30, 120);
 
                 r18 = new Rectangle(436, 460, 200, 35);
-        g.setColor(Color.magenta);
-        g.fillRect(436, 460, 200, 35);
+//        g.setColor(Color.magenta);
+//        g.fillRect(436, 460, 200, 35);
 
                 r19 = new Rectangle(430, 580, 27, 100);
-        g.setColor(Color.gray);
-        g.fillRect(430, 580, 27, 100);
+//        g.setColor(Color.gray);
+//        g.fillRect(430, 580, 27, 100);
 
                 r20 = new Rectangle(630, 485, 30, 150);
-        g.setColor(Color.gray);
-        g.fillRect(630, 485, 30, 150);
+//        g.setColor(Color.gray);
+//        g.fillRect(630, 485, 30, 150);
 
                 r21 = new Rectangle(175, 285, 50, 30);
-        g.setColor(Color.yellow);
-        g.fillRect(175, 285, 50, 30);
+//        g.setColor(Color.yellow);
+//        g.fillRect(175, 285, 50, 30);
+
+
+
 
                 finish_line = new Rectangle(465, 625, 40, 40);
                 Color a = new Color(1f, 0f, 0f, .5f);
@@ -626,7 +630,12 @@ class CustomCanvas extends Canvas {
             } else {
                 g.setFont(new Font("Arial", Font.BOLD, 32));
                 g.setColor(Color.black);
-                g.drawString("Naruto and friends has escaped from", 70, 130);
+                if(dballs_collected && !gauntlet_collected)
+                    g.drawString("Naruto and Kokichi has escaped from", 70, 130);
+                else if(gauntlet_collected && !dballs_collected)
+                    g.drawString("Naruto and Sakura has escaped from", 70, 130);
+                else
+                    g.drawString("Naruto and Friends has escaped from", 70, 130);
                 g.drawString("the villains!", 220, 160);
                 g.drawString("Thank You for Playing!", 150, 210);
                 g.drawString("Comrade(s):" + comrades, 50, 490);
