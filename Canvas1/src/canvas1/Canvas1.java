@@ -74,11 +74,13 @@ class CustomCanvas extends Canvas {
     boolean weap_thrown = false;
     boolean weap_collected = false;
     boolean endpoint = true;
+    boolean endpoint1 = true;
     boolean no_key = false;
 
     int[] movements = new int[10];
     public int count = 350;
     public int ctr = 1;
+    public int ctr2 = 1;
     int strikes = 0;
     int steps = 0;
     int retries = 0;
@@ -130,6 +132,13 @@ class CustomCanvas extends Canvas {
     Rectangle comrade3;
     ImageIcon comrade3_icon;
     Image comrade3_image;
+
+    Rectangle fist;
+    ImageIcon fist_icon;
+    Image fist_image;
+
+    ImageIcon die_icon;
+    Image die_image;
 
 
     public int c3_x = 470;
@@ -214,14 +223,15 @@ class CustomCanvas extends Canvas {
         sasuke_icon = new ImageIcon("Canvas1/sasuke.png");
         sasuke_image = sasuke_icon.getImage();
 
-        comrade3_icon = new ImageIcon("Canvas1/boss.png");
-        comrade3_image = comrade3_icon.getImage();
+        fist_icon = new ImageIcon("Canvas1/fist.jpg");
+        fist_image = fist_icon.getImage();
 
         bg = new ImageIcon("Canvas1/default_view.png");
         backgroundx = bg.getImage();
         newImage = backgroundx.getScaledInstance(700, 700, Image.SCALE_DEFAULT);
 
-
+        die_icon = new ImageIcon("Canvas1/die.png");
+        die_image = die_icon.getImage();
 
         timer = new Timer(true);
         task = new TimerTask() {
@@ -309,6 +319,7 @@ class CustomCanvas extends Canvas {
             weap = "None";
             lives = 3;
             retries+=1;
+            has_key = 1;
         }
         super.paint(g);
         g.drawImage(newImage, 0, 0, this);
@@ -327,6 +338,18 @@ class CustomCanvas extends Canvas {
                         endpoint = true;
                     else if (ctr == 0)//ctr is 1 so this condition wouldn't be met
                         endpoint = false;
+                }
+
+                if (!comrade3_slain) {
+                    if (endpoint1)
+                        ctr2 -= 1;
+                    else
+                        ctr2 += 1;
+
+                    if (ctr2 == 7)
+                        endpoint1 = true;
+                    else if (ctr2 == 0)//ctr is 1 so this condition wouldn't be met
+                        endpoint1 = false;
                 }
 
                 g.setFont(new Font("Arial", Font.BOLD, 16));
@@ -393,8 +416,18 @@ class CustomCanvas extends Canvas {
                     g.drawImage(imgCurent, virtualX, virtualY, this);
                 }
 
-                //Comrade 3
+                //Saitama
                 if (!comrade3_slain) {
+                    fist = new Rectangle(-150, -150, fist_image.getHeight(this), fist_image.getWidth(this));
+                    if(ctr2 == 0) {
+                        comrade3_icon = new ImageIcon("Canvas1/saktama.png");
+                        g.drawImage(fist_image, c3_x-100, c3_y, this);
+                        fist.setLocation(c3_x-100, c3_y);
+                    }
+                    else {
+                        comrade3_icon = new ImageIcon("Canvas1/saitama.jpg");
+                    }
+                    comrade3_image = comrade3_icon.getImage();
                     g.drawImage(comrade3_image, c3_x, c3_y, this);
                     comrade3 = new Rectangle(c3_x, c3_y, comrade3_image.getHeight(this), comrade3_image.getWidth(this));
                 }
@@ -551,10 +584,10 @@ class CustomCanvas extends Canvas {
                     sasuke.setLocation(-50, -120);
                 }
 
-                if (rect.intersects(sasuke) || rect.intersects(comrade3)) {
+                if (rect.intersects(sasuke) || rect.intersects(comrade3) || rect.intersects(fist)) {
                     virtualX = 220;
                     virtualY = 120;
-                    g.drawImage(imgCurent, virtualX, virtualY, this);
+                    g.drawImage(die_image, virtualX, virtualY, this);
                     lives -= 1;
                     if(lives == -1) {
                         bg = new ImageIcon("Canvas1/download.png");
@@ -562,6 +595,7 @@ class CustomCanvas extends Canvas {
                         newImage = backgroundx.getScaledInstance(700, 700, Image.SCALE_DEFAULT);
                         g.drawImage(newImage, 0, 0, this);
                     }
+
                 }
 
                 if (rect.intersects(gauntlet)) {
@@ -576,23 +610,26 @@ class CustomCanvas extends Canvas {
                 }
 
                 if (weapon.intersects(comrade3)) {
-                    if (gauntlet_collected && dballs_collected) {
+                    if (gauntlet_collected || dballs_collected) {
                         comrade3_slain = true;
                         comrade3.setLocation(0, -20);
                     } else {
                         g.setFont(new Font("Arial", Font.BOLD, 16));
+                        g.setColor(Color.YELLOW);
                         g.drawString("The power of friendship is not enough. Need at least 1 friend.", 200, 30);
                     }
                 }
 
                 restart = false;
                 weap_thrown = false;
+
             } else {
                 g.setFont(new Font("Arial", Font.BOLD, 32));
                 g.setColor(Color.black);
                 g.drawString("Naruto and friends has escaped from", 70, 130);
                 g.drawString("the villains!", 220, 160);
                 g.drawString("Thank You for Playing!", 150, 210);
+                g.drawString("Comrade(s):" + comrades, 50, 490);
                 g.drawString("Steps:" + steps, 50, 530);
                 g.drawString("Strikes:" + strikes, 50, 570);
                 g.drawString("Lives:"+lives,50, 610);
@@ -619,7 +656,7 @@ class CustomCanvas extends Canvas {
                         && !rect.intersects(r10) && !rect.intersects(r11) && !rect.intersects(r12) && !rect.intersects(r13)
                         && !rect.intersects(r14) && !rect.intersects(r15) && !rect.intersects(r16) && !rect.intersects(r17)
                         && !rect.intersects(r18) && !rect.intersects(r19) && !rect.intersects(r20) && !rect.intersects(r21)
-                        && !rect.intersects(d1) && !rect.intersects(d2) && !rect.intersects(d3) && !rect.intersects(r22)) {
+                        && !rect.intersects(d1) && !rect.intersects(d2) && !rect.intersects(d3) && !rect.intersects(r22) && !rect.intersects(finish_line)) {
 
                     virtualY += 15;
                     frame = (frame + 1) % 4;
@@ -646,7 +683,7 @@ class CustomCanvas extends Canvas {
                         && !rect.intersects(r10) && !rect.intersects(r11) && !rect.intersects(r12) && !rect.intersects(r13)
                         && !rect.intersects(r14) && !rect.intersects(r15) && !rect.intersects(r16) && !rect.intersects(r17)
                         && !rect.intersects(r18) && !rect.intersects(r19) && !rect.intersects(r20) && !rect.intersects(r21)
-                        && !rect.intersects(d1) && !rect.intersects(d2) && !rect.intersects(d3) && !rect.intersects(r22)) {
+                        && !rect.intersects(d1) && !rect.intersects(d2) && !rect.intersects(d3) && !rect.intersects(r22)  && !rect.intersects(finish_line)) {
 
                     virtualY -= 15;
                     frame = (frame + 1) % 4;
@@ -673,7 +710,7 @@ class CustomCanvas extends Canvas {
                         && !rect.intersects(r10) && !rect.intersects(r11) && !rect.intersects(r12) && !rect.intersects(r13)
                         && !rect.intersects(r14) && !rect.intersects(r15) && !rect.intersects(r16) && !rect.intersects(r17)
                         && !rect.intersects(r18) && !rect.intersects(r19) && !rect.intersects(r20) && !rect.intersects(r21)
-                        && !rect.intersects(d1) && !rect.intersects(d2) && !rect.intersects(d3) && !rect.intersects(r22)) {
+                        && !rect.intersects(d1) && !rect.intersects(d2) && !rect.intersects(d3) && !rect.intersects(r22) && !rect.intersects(finish_line)) {
 
                     virtualX -= 15;
                     frame = (frame + 1) % 4;
@@ -700,7 +737,7 @@ class CustomCanvas extends Canvas {
                         && !rect.intersects(r10) && !rect.intersects(r11) && !rect.intersects(r12) && !rect.intersects(r13)
                         && !rect.intersects(r14) && !rect.intersects(r15) && !rect.intersects(r16) && !rect.intersects(r17)
                         && !rect.intersects(r18) && !rect.intersects(r19) && !rect.intersects(r20) && !rect.intersects(r21)
-                        && !rect.intersects(d1) && !rect.intersects(d2) && !rect.intersects(d3) && !rect.intersects(r22)) {
+                        && !rect.intersects(d1) && !rect.intersects(d2) && !rect.intersects(d3) && !rect.intersects(r22)  && !rect.intersects(finish_line)) {
 
                     virtualX += 15;
                     frame = (frame + 1) % 4;
@@ -735,7 +772,10 @@ class CustomCanvas extends Canvas {
                     has_key -= 1;
                 } else if (rect.intersects(d2)) {
                     if (has_key > 0) {
-                        bg = new ImageIcon("Canvas1/d1_d2_opened.png");
+                        if(!d3_unlocked)
+                            bg = new ImageIcon("Canvas1/d1_d2_opened.png");
+                        else
+                            bg = new ImageIcon("Canvas1/d1_d2_d3_opened.png");
                         backgroundx = bg.getImage();
                         newImage = backgroundx.getScaledInstance(700, 700, Image.SCALE_DEFAULT);
                         d2_unlocked = true;
@@ -747,7 +787,10 @@ class CustomCanvas extends Canvas {
 
                 } else if (rect.intersects(d3)) {
                     if (has_key > 0) {
-                        bg = new ImageIcon("Canvas1/d1_d2_d3_opened.png");
+                        if(d2_unlocked)
+                            bg = new ImageIcon("Canvas1/d1_d2_d3_opened.png");
+                        else
+                            bg = new ImageIcon("Canvas1/d1_d3_opened.png");
                         backgroundx = bg.getImage();
                         newImage = backgroundx.getScaledInstance(700, 700, Image.SCALE_DEFAULT);
                         d3_unlocked = true;
